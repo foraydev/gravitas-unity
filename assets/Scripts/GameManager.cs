@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
     private Dictionary<string, bool> sceneFlags = new Dictionary<string, bool>();
     private bool canRepress = true;
     private int framesSinceLastClick = 0;
+    private SpawnPoint playerSpawn = new SpawnPoint("Start_Helipad", new Vector3(-1.7f, -4.19f, 0f));
 
     // other references
     GameObject savePointUI;
@@ -84,6 +85,10 @@ public class GameManager : MonoBehaviour
             canRepress = false;
         } else if (Input.GetButtonUp("Cancel")) {
             canRepress = true;
+        }
+        if (gameState == "play" && playerHP <= 0) {
+            gameState = "death";
+            RespawnPlayer();
         }
         framesSinceLastClick++;
     }
@@ -147,9 +152,23 @@ public class GameManager : MonoBehaviour
         } else {
             playerLoadState.position = new Vector3(t.targetX, t.targetY+dist, 0);
         }
+        if (t.GetTargetTransitionType() == "R") {
+            playerLoadState.facingRight = false;
+        }
+        if (t.GetTargetTransitionType() == "L") {
+            playerLoadState.facingRight = true;
+        }
         if (t.GetTargetTransitionType() != "E") {
             Input.ResetInputAxes();
         }
+    }
+
+    public void RespawnPlayer() {
+        gameState = "play";
+        SceneManager.LoadScene(playerSpawn.scene);
+        playerLoadState = new PlayerState(playerSpawn.position);
+        playerHP = maxHP;
+        playerMP = maxMP;
     }
 
     public bool GetSceneFlag(string flag) {
@@ -178,6 +197,12 @@ public class GameManager : MonoBehaviour
     {
         gameState = "saving";
         savePointUI.SetActive(true);
+        playerSpawn = new SpawnPoint(SceneManager.GetActiveScene().name, currentPlayerTransform.position);
+        if (currentPlayer == "Axis") {
+            GameObject.Find("Axis").GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+        } else {
+            GameObject.Find("Myst_Character").GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+        }
     }
 
     public void LeaveSavePoint() {

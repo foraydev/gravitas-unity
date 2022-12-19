@@ -865,7 +865,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -11730,14 +11730,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultMusic: {fileID: 8300000, guid: 250ac93a4730f7a4faff45c6c9dfb88c, type: 3}
-  alternateZones:
-  - music: {fileID: 8300000, guid: 6b711a4decc287b44bff9c63cc385882, type: 3}
-    zoneX: -27
-    zoneY: 25
-    zoneW: 15
-    zoneH: 30
-    zoneFlag: none
-    activeValue: 0
+  alternateZones: []
 --- !u!4 &1907268486
 Transform:
   m_ObjectHideFlags: 0

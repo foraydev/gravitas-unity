@@ -13,4 +13,10 @@ public class PlayerState
         this.facingRight = player.facingRight;
         this.moveMode = player.moveMode;
     }
+
+    public PlayerState(Vector3 pos) {
+        this.position = pos;
+        this.facingRight = true;
+        this.moveMode = "normal";
+    }
 }

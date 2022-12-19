@@ -11,7 +11,7 @@ public class MusicZone
     public bool activeValue;
 
     public bool IsActive() {
-        if (GameManager.Instance.currentPlayerTransform == null) {
+        if (GameManager.Instance == null || GameManager.Instance.currentPlayerTransform == null) {
             return false;
         }
         Vector3 playerPos = GameManager.Instance.currentPlayerTransform.position;
