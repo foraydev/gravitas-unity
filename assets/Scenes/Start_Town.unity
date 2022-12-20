@@ -713,16 +713,7 @@ MonoBehaviour:
   sceneWidth: 33
   sceneHeight: 22
   gameManager: {fileID: 2020761947}
-  zones:
-  - zoneType: fixed
-    zoneX: -6
-    zoneY: 5
-    zoneW: 15
-    zoneH: 10
-    focusX: -3
-    focusY: 2
-    zoneFlag: Start_Hotel-FakeWall1
-    activeValue: 0
+  zones: []
 --- !u!1 &682743883
 GameObject:
   m_ObjectHideFlags: 0

@@ -25,16 +25,23 @@ public class GameManager : MonoBehaviour
     public float playerMP { get { return _playerMP; } set { _playerMP = Mathf.Clamp(value, 0, maxMP); } }
 
     // game state info
-    public string gameState { get; set; } = "play";
+    private int framesSinceStateChange { get; set; } = 0;
+    private string _gameState;
+    public string gameState { get { return _gameState; } set { _gameState = value; framesSinceStateChange = 0; } }
     private Dictionary<string, bool> sceneFlags = new Dictionary<string, bool>();
     private bool canRepress = true;
     private int framesSinceLastClick = 0;
     private SpawnPoint playerSpawn = new SpawnPoint("Start_Helipad", new Vector3(-1.7f, -4.19f, 0f));
+    private int numCollectibles = 0;
 
     // other references
     GameObject savePointUI;
     GameObject axisObj;
     GameObject mystObj;
+    GameObject fadeSquare;
+    GameObject collectibleMsg;
+    HealthBarManager hpBar = null;
+	HealthBarManager mpBar = null;
 
     private void Awake()
     {
@@ -52,6 +59,7 @@ public class GameManager : MonoBehaviour
         sceneFlags.Add("Start_Hotel-FakeWall1", false);
         playerHP = maxHP;
         playerMP = maxMP;
+        gameState = "play";
         ConfigRefs();
     }
 
@@ -88,12 +96,22 @@ public class GameManager : MonoBehaviour
         }
         if (gameState == "play" && playerHP <= 0) {
             gameState = "death";
+            StopAllCoroutines();
+            StartCoroutine(FadeToBlack(true, 1));
+            GameObject.Find("MusicManager").GetComponent<MusicManager>().StopMusic();
+        }
+        if (gameState == "death" && fadeSquare.GetComponent<Image>().color.a >= 1) {
             RespawnPlayer();
         }
         framesSinceLastClick++;
+        framesSinceStateChange++;
+        hpBar.setVal(playerHP);
+		mpBar.setVal(playerMP);
     }
 
     void ConfigRefs() {
+        hpBar = GameObject.Find("Healthbar").GetComponent<HealthBarManager>();
+        mpBar = GameObject.Find("Magicbar").GetComponent<HealthBarManager>();
         savePointUI = GameObject.Find("SavePointOptions");
         axisObj = GameObject.Find("Axis");
         mystObj = GameObject.Find("Myst");
@@ -105,6 +123,13 @@ public class GameManager : MonoBehaviour
         GameObject.Find("SwapChars").GetComponent<Button>().onClick.AddListener(this.SwapCharacters);
         GameObject.Find("SaveQuit").GetComponent<Button>().onClick.AddListener(this.QuitToMenu);
         savePointUI.SetActive(false);
+        fadeSquare = GameObject.Find("Blackout");
+        collectibleMsg = GameObject.Find("CollectibleMsg");
+        collectibleMsg.GetComponent<TextMeshProUGUI>().color = new Color(255f, 255f, 255f, 0f);
+        StopAllCoroutines();
+        StartCoroutine(FadeToBlack(false));
+        hpBar.setMaxVal(maxHP);
+		mpBar.setMaxVal(maxMP);
     }
 
     public void SwapCharacters() {
@@ -167,8 +192,11 @@ public class GameManager : MonoBehaviour
         gameState = "play";
         SceneManager.LoadScene(playerSpawn.scene);
         playerLoadState = new PlayerState(playerSpawn.position);
+        StopAllCoroutines();
+        StartCoroutine(FadeToBlack(false));
         playerHP = maxHP;
         playerMP = maxMP;
+        GameObject.Find("MusicManager").GetComponent<MusicManager>().StartMusic();
     }
 
     public bool GetSceneFlag(string flag) {
@@ -184,6 +212,7 @@ public class GameManager : MonoBehaviour
     public void GetCollectible(string name)
     {
         Debug.Log("Got collectible - "+name+"!");
+        collectibleMsg.GetComponent<TextMeshProUGUI>().text = "Got collectible: " + (++numCollectibles) + "/4";
         SetSceneFlag(name, true);
     }
 
@@ -203,14 +232,64 @@ public class GameManager : MonoBehaviour
         } else {
             GameObject.Find("Myst_Character").GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         }
+        playerHP = maxHP;
     }
 
     public void LeaveSavePoint() {
         gameState = "play";
         savePointUI.SetActive(false);
+        if (currentPlayer == "Axis") {
+            GameObject.Find("Axis").GetComponent<AxisPlayerController>().moveMode = "normal";
+        } else {
+            GameObject.Find("Myst_Character").GetComponent<MystPlayerController>().moveMode = "normal";
+        }
     }
 
     public void QuitToMenu() {
         SceneManager.LoadScene("MenuMain");
+    }
+
+    public IEnumerator FadeToBlack(bool fadeOut = true, float fadeSpeed = 5) {
+        Color objColor = fadeSquare.GetComponent<Image>().color;
+        float fadeAmount;
+        if (fadeOut) {
+            while (fadeSquare.GetComponent<Image>().color.a < 1) {
+                fadeAmount = objColor.a + (fadeSpeed * Time.deltaTime);
+                objColor = new Color(objColor.r, objColor.g, objColor.b, fadeAmount);
+                fadeSquare.GetComponent<Image>().color = objColor;
+                yield return null;
+            }
+        } else {
+            while (fadeSquare.GetComponent<Image>().color.a > 0) {
+                fadeAmount = objColor.a - (fadeSpeed * Time.deltaTime);
+                objColor = new Color(objColor.r, objColor.g, objColor.b, fadeAmount);
+                fadeSquare.GetComponent<Image>().color = objColor;
+                yield return null;
+            }
+        }
+    }
+
+    public IEnumerator ShowCollectibleMsg(bool fadeOut = true) {
+        Color objColor = collectibleMsg.GetComponent<TextMeshProUGUI>().color;
+        float fadeAmount;
+        if (fadeOut) {
+            while (collectibleMsg.GetComponent<TextMeshProUGUI>().color.a < 1) {
+                fadeAmount = objColor.a + (2 * Time.deltaTime);
+                objColor = new Color(objColor.r, objColor.g, objColor.b, fadeAmount);
+                collectibleMsg.GetComponent<TextMeshProUGUI>().color = objColor;
+                yield return null;
+            }
+        } else {
+            while (collectibleMsg.GetComponent<TextMeshProUGUI>().color.a > 0) {
+                fadeAmount = objColor.a - (2 * Time.deltaTime);
+                objColor = new Color(objColor.r, objColor.g, objColor.b, fadeAmount);
+                collectibleMsg.GetComponent<TextMeshProUGUI>().color = objColor;
+                yield return null;
+            }
+        }
+    }
+
+    public bool CanAct() {
+        return framesSinceStateChange > 10;
     }
 }

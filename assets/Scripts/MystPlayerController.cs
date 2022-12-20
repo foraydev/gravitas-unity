@@ -39,7 +39,7 @@ public class MystPlayerController : Player
 				rigidbody2D.gravityScale = 0.0f;
 				framesSinceLastDash = 20;
 			}
-			if (swordMode == "normal")
+			if (gameManager.CanAct() && swordMode == "normal")
 			{
 				if (Input.GetButtonDown("Spell"))
 				{
@@ -83,7 +83,7 @@ public class MystPlayerController : Player
 			rigidbody2D.AddForce(new Vector2(0f, jumpForce));
 		}
 		if (wallSliding) {
-			if (jump) {
+			if (jump && canJump) {
 				rigidbody2D.AddForce(new Vector2(facingRight ? -2000f : 2000f, 1500f));
 			} else {
 				rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, Mathf.Clamp(rigidbody2D.velocity.y, -wallSlideSpeed, float.MaxValue));
@@ -136,6 +136,9 @@ public class MystPlayerController : Player
 	}
 
 	private bool CheckTouchingFront() {
+		if (isGrounded || isOnSword) {
+			return false;
+		}
 		Collider2D[] colliders = Physics2D.OverlapCircleAll(frontCheck.position, groundedRadius, whatIsGround);
 		for (int i = 0; i < colliders.Length; i++)
 		{

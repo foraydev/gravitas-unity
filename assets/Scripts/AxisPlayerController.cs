@@ -29,7 +29,7 @@ public class AxisPlayerController : Player
 		if (gameManager.currentPlayer == "Axis" && gameManager.gameState == "play")
 		{
 			base.Update();
-			if (Input.GetButtonDown("Spell") && moveMode == "normal")
+			if (gameManager.CanAct() && Input.GetButtonDown("Spell") && moveMode == "normal")
 			{
 				moveMode = "cast";
 			}

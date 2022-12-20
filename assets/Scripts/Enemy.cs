@@ -91,7 +91,6 @@ public class Enemy : MonoBehaviour
         RaycastHit2D rc1 = Physics2D.Raycast(groundCheck.position, transform.right, 0.5f, whatIsGround);
         RaycastHit2D rc2 = Physics2D.Raycast(groundCheck.position - new Vector3(0f, 0.1f, 0f), transform.right, 0.5f, whatIsGround);
         if (rc1.collider != null && rc2.collider != null) {
-            Debug.Log("slope!");
             concaveRotationLastFrame = true;
         }
     }

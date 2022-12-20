@@ -27,9 +27,7 @@ public class MusicManager : MonoBehaviour
     }
 
     private void Start() {
-        sceneMusic = GameObject.Find("SceneMusicManager").GetComponent<SceneMusicManager>();
-        source.clip = sceneMusic.GetCurrentMusic();
-        source.Play();
+        StartMusic();
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
@@ -53,5 +51,15 @@ public class MusicManager : MonoBehaviour
             currentTrack = curr.name;
             source.Play();
         }
+    }
+
+    public void StartMusic() {
+        sceneMusic = GameObject.Find("SceneMusicManager").GetComponent<SceneMusicManager>();
+        source.clip = sceneMusic.GetCurrentMusic();
+        source.Play();
+    }
+
+    public void StopMusic() {
+        source.Stop();
     }
 }

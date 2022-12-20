@@ -7,8 +7,6 @@ public class Player : MonoBehaviour
 {
 	// global player attributes
 	protected float movementSmoothing = .05f;
-	public HealthBarManager hpBar = null;
-	public HealthBarManager mpBar = null;
 	public GameManager gameManager = null;
 	public bool facingRight { get; set; } = true;
 
@@ -40,40 +38,51 @@ public class Player : MonoBehaviour
 	protected int framesSinceLeavingGround = 0;
 	protected int graceFrames = 6;
 
+	// invincibility
+	protected int framesSinceDamage = 0;
+	protected int knockbackFrames = 5;
+	protected int iFrames = 20;
+
     protected void Start()
 	{
 		rigidbody2D = GetComponent<Rigidbody2D>();
-        hpBar = GameObject.Find("Healthbar").GetComponent<HealthBarManager>();
-        mpBar = GameObject.Find("Magicbar").GetComponent<HealthBarManager>();
 		whatIsGround = LayerMask.GetMask("Ground");
 		groundCheck = transform.Find("GroundCheck");
         gameManager = GameManager.Instance;
         respawnPoint = new Vector3(0f, 0f, 0f);
-		hpBar.setMaxVal(gameManager.maxHP);
-		mpBar.setMaxVal(gameManager.maxMP);
         gameManager.playerMP = gameManager.maxMP;
 	}
 
     protected void Update()
     {
-		horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
-		if (Input.GetButtonDown("Float"))
-		{
-			moveMode = "float";
-		}
-		if (moveMode == "normal")
-		{
-			if (Input.GetButtonDown("Jump"))
+		if (moveMode != "damaged") {
+			horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
+			if (Input.GetButtonDown("Float"))
 			{
-				jumping = true;
-			} else if (Input.GetButtonUp("Jump")) {
-				canJump = true;
+				moveMode = "float";
+			}
+			if (moveMode == "normal")
+			{
+				if (Input.GetButtonDown("Jump"))
+				{
+					jumping = true;
+				} else if (Input.GetButtonUp("Jump")) {
+					canJump = true;
+				}
 			}
 		}
     }
 
     protected void FixedUpdate()
     {
+		if (moveMode == "damaged") {
+			if (framesSinceDamage == knockbackFrames-1) {
+				rigidbody2D.velocity = Vector2.zero;
+			}
+			if (framesSinceDamage > knockbackFrames) {
+				moveMode = "normal";
+			}
+		}
 		if (fallStunTimer > 0) {
 			fallStunTimer -= Time.deltaTime;
 			if (fallStunTimer <= 0) {
@@ -104,9 +113,8 @@ public class Player : MonoBehaviour
 		}
 		jumping = false;
 		framesSinceLeavingGround++;
+		framesSinceDamage++;
 		rigidbody2D.velocity = Vector2.Max(rigidbody2D.velocity, new Vector2(rigidbody2D.velocity.x, Mathf.Clamp(rigidbody2D.velocity.y, -15, float.MaxValue)));
-		hpBar.setVal(gameManager.playerHP);
-		mpBar.setVal(gameManager.playerMP);
     }
 
     protected virtual void Move(float move, bool jump)
@@ -146,13 +154,28 @@ public class Player : MonoBehaviour
 	}
 
     protected void TakeDamage(float dmg) {
-		gameManager.playerHP -= dmg;
+		if (framesSinceDamage > iFrames) {
+			gameManager.playerHP -= dmg;
+			framesSinceDamage = 0;
+			moveMode = "damaged";
+			if (gameManager.playerHP <= 0) {
+				rigidbody2D.velocity = Vector2.zero;
+				rigidbody2D.isKinematic = true;
+				rigidbody2D.simulated = false;
+			}
+		}
     }
 
     protected void TakeDamageAndRespawn(float dmg) {
         TakeDamage(dmg);
-        transform.position = respawnPoint;
+		if (gameManager.playerHP > 0) {
+			transform.position = new Vector3(respawnPoint.x, respawnPoint.y + DistanceToGround(), respawnPoint.z);
+		}
 		rigidbody2D.velocity = Vector3.zero;
+		if (gameManager.playerHP <= 0) {
+			rigidbody2D.isKinematic = true;
+			rigidbody2D.simulated = false;
+		}
     }
 
     protected void OnTriggerEnter2D(Collider2D collision) {
@@ -168,14 +191,22 @@ public class Player : MonoBehaviour
         }
 	}
 
+	protected void OnCollisionEnter2D(Collision2D col) {
+		if (gameManager.gameState == "play") {
+			if (col.gameObject.tag == "Enemy") {
+				TakeDamage(20);
+				rigidbody2D.AddForce(new Vector2(col.gameObject.transform.position.x < transform.position.x ? 1500f : -1500f, 600f));
+			}
+		}
+    }
+
 	public void LoadFromPlayerState(PlayerState ps) {
 		transform.position = ps.position;
 		if (!ps.facingRight) { Flip(); }
 		this.moveMode = ps.moveMode;
 		rigidbody2D = GetComponent<Rigidbody2D>();
-		/*if (this.moveMode == "up-transition") {
-			rigidbody2D.AddForce(new Vector2(facingRight ? 110f : -110f, 900f));
-		}*/
+		rigidbody2D.isKinematic = false;
+		rigidbody2D.simulated = true;
 	}
 
 	protected bool CheckGrounded() {

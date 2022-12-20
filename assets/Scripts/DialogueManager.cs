@@ -22,6 +22,11 @@ public class DialogueManager : MonoBehaviour
 
     public void StartDialogue(Dialogue dialogue)
     {
+        if (gameManager.currentPlayer == "Axis") {
+            GameObject.Find("Axis").GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+        } else {
+            GameObject.Find("Myst_Character").GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+        }
         ShowDialogueBox();
         nameText.SetText(dialogue.name);
         gameManager.gameState = "dialogue";
@@ -48,6 +53,11 @@ public class DialogueManager : MonoBehaviour
     {
         HideDialogueBox();
         gameManager.gameState = "play";
+        if (gameManager.currentPlayer == "Axis") {
+            GameObject.Find("Axis").GetComponent<AxisPlayerController>().moveMode = "normal";
+        } else {
+            GameObject.Find("Myst_Character").GetComponent<MystPlayerController>().moveMode = "normal";
+        }
     }
 
     public void ShowDialogueBox() {
