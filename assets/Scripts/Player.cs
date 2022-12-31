@@ -28,6 +28,7 @@ public class Player : MonoBehaviour
 	protected Rigidbody2D rigidbody2D;
 	protected Vector3 velocity = Vector3.zero;
     protected Vector3 respawnPoint;
+	protected Animator animator;
 
 	// fallstun
 	protected float fallStartY = 0f;
@@ -51,6 +52,7 @@ public class Player : MonoBehaviour
         gameManager = GameManager.Instance;
         respawnPoint = new Vector3(0f, 0f, 0f);
         gameManager.playerMP = gameManager.maxMP;
+		animator = GetComponent<Animator>();
 	}
 
     protected void Update()
@@ -71,6 +73,7 @@ public class Player : MonoBehaviour
 				}
 			}
 		}
+		UpdateAnimator();
     }
 
     protected void FixedUpdate()
@@ -236,5 +239,21 @@ public class Player : MonoBehaviour
 
 	public float DistanceToGround() {
 		return transform.position.y - groundCheck.transform.position.y;
+	}
+
+	protected void UpdateAnimator() {
+		if (moveMode == "normal") {
+			animator.SetInteger("MoveMode", 0);
+		} else if (moveMode == "stun") {
+			animator.SetInteger("MoveMode", 1);
+		} else if (moveMode == "float") {
+			animator.SetInteger("MoveMode", 2);
+		} else if (moveMode == "damaged") {
+			animator.SetInteger("MoveMode", 3);
+		}
+		animator.SetFloat("xSpeed", Mathf.Abs(rigidbody2D.velocity.x));
+		animator.SetFloat("ySpeed", rigidbody2D.velocity.y);
+		animator.SetBool("Jumping", jumping);
+		animator.SetBool("Grounded", isGrounded);
 	}
 }

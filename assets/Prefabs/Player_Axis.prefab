@@ -14552,13 +14552,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 253b0ce17182af3448dcd56db22dc99e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hpBar: {fileID: 0}
-  mpBar: {fileID: 0}
   gameManager: {fileID: 0}
   dustPS: {fileID: 8929135557416443150}
   floatPS: {fileID: 8929135558899991168}
   doubleJumpPS: {fileID: 8929135557842127858}
-  mpPerJump: 33
+  mpPerJump: 60
   firePoint: {fileID: 2597523811946586115}
   wavePrefab: {fileID: 7606341064557221214, guid: 09f3d2547af8e6642b18442d5e68c8d4, type: 3}
 --- !u!50 &8929135559047344160
@@ -14623,7 +14621,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 34f2acafe3049a14ea905b531f599ac9, type: 3}
+  m_Sprite: {fileID: 1631249648, guid: 2d765b40ac820b44aa320a21a1e1b7b6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -14647,7 +14645,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.056691527}
+  m_Offset: {x: 0, y: 0.05}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -14658,7 +14656,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.56782717, y: 0.63429284}
+  m_Size: {x: 0.4, y: 1.25}
   m_EdgeRadius: 0
 --- !u!58 &8929135559047344167
 CircleCollider2D:
@@ -14673,9 +14671,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.49}
+  m_Offset: {x: 0, y: -0.6}
   serializedVersion: 2
-  m_Radius: 0.3
+  m_Radius: 0.2
 --- !u!95 &8929135559047344173
 Animator:
   serializedVersion: 4
@@ -14684,7 +14682,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8929135559047344165}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 6c2f6dac4600e5b43bf8eb9220122f93, type: 2}
   m_CullingMode: 0
