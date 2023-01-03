@@ -18753,17 +18753,33 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3253893450822234536, guid: 1489abcd2a2028e42b7dbd0dff69b52a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3253893450889067379, guid: 1489abcd2a2028e42b7dbd0dff69b52a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.79
+      objectReference: {fileID: 0}
+    - target: {fileID: 3253893451864465396, guid: 1489abcd2a2028e42b7dbd0dff69b52a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3253893452162879222, guid: 1489abcd2a2028e42b7dbd0dff69b52a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.8
+      objectReference: {fileID: 0}
     - target: {fileID: 3253893452202562419, guid: 1489abcd2a2028e42b7dbd0dff69b52a, type: 3}
       propertyPath: m_RootOrder
       value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 3253893452202562419, guid: 1489abcd2a2028e42b7dbd0dff69b52a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.8802476
+      value: -11.8
       objectReference: {fileID: 0}
     - target: {fileID: 3253893452202562419, guid: 1489abcd2a2028e42b7dbd0dff69b52a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.425016
+      value: -3.79
       objectReference: {fileID: 0}
     - target: {fileID: 3253893452202562419, guid: 1489abcd2a2028e42b7dbd0dff69b52a, type: 3}
       propertyPath: m_LocalPosition.z
@@ -19015,6 +19031,10 @@ PrefabInstance:
       propertyPath: m_Size.y
       value: 1.6
       objectReference: {fileID: 0}
+    - target: {fileID: 8929135559047344161, guid: 9eaece7d26605d04f8207c0886d111cf, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -905927460, guid: 94ea69c011643454fbb01df19f0dff50, type: 3}
     - target: {fileID: 8929135559047344161, guid: 9eaece7d26605d04f8207c0886d111cf, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1

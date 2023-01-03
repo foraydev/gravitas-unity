@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 94ea69c011643454fbb01df19f0dff50
+guid: 02896696fb242174995b0f68bbe783a1
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -117,7 +117,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: axis-sprite-sheet_0
+      name: myst-sprite-sheet_0
       rect:
         serializedVersion: 2
         x: 0
@@ -131,14 +131,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 91c7a94aa28aeaf4a9ceac6e9b402b99
-      internalID: -905927460
+      spriteID: 9d74ecc0c0a38ce498a56d94f9ca189e
+      internalID: -1902077613
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: axis-sprite-sheet_1
+      name: myst-sprite-sheet_1
       rect:
         serializedVersion: 2
         x: 160
@@ -152,14 +152,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 89b2610024212164eb1137a8a25f0786
-      internalID: -1706708554
+      spriteID: 73a4c60f6c991c542aa5f8274f115727
+      internalID: -1853111557
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: axis-sprite-sheet_2
+      name: myst-sprite-sheet_2
       rect:
         serializedVersion: 2
         x: 320
@@ -173,14 +173,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 07517aca6bc0e754d809f968787979cb
-      internalID: 376062688
+      spriteID: 538a494069342214e878fb173af37ff5
+      internalID: -134591790
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: axis-sprite-sheet_3
+      name: myst-sprite-sheet_3
       rect:
         serializedVersion: 2
         x: 480
@@ -194,14 +194,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0b1c075787fd6994e9cd0460d0db4f84
-      internalID: -526836749
+      spriteID: 4330d147b7521214caf87f386599d8a2
+      internalID: 1459648933
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: axis-sprite-sheet_4
+      name: myst-sprite-sheet_4
       rect:
         serializedVersion: 2
         x: 640
@@ -215,14 +215,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e475995d8841c2949ad05bb5a9c5f30f
-      internalID: 1729787033
+      spriteID: ad98a05e052d7334ebc737612352d264
+      internalID: -1375545946
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: axis-sprite-sheet_5
+      name: myst-sprite-sheet_5
       rect:
         serializedVersion: 2
         x: 800
@@ -236,14 +236,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 429f47f75418527469cb0be66a54e639
-      internalID: 1157730537
+      spriteID: 4fcd52969ec557d4ea30e8d07c49849b
+      internalID: 1025857820
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: axis-sprite-sheet_6
+      name: myst-sprite-sheet_6
       rect:
         serializedVersion: 2
         x: 960
@@ -257,14 +257,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d463569e944c889488b568f38b3d7a1b
-      internalID: -1159250768
+      spriteID: f57e5a8372d28344cb5aae96e7ea3a0e
+      internalID: -1649003258
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: axis-sprite-sheet_7
+      name: myst-sprite-sheet_7
       rect:
         serializedVersion: 2
         x: 1120
@@ -278,14 +278,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2b2f9de44246e0e4d9b1966cf488f17c
-      internalID: -676168576
+      spriteID: 09ad3fba5dc57c64486c72f2f564d82e
+      internalID: 468977886
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: axis-sprite-sheet_8
+      name: myst-sprite-sheet_8
       rect:
         serializedVersion: 2
         x: 1280
@@ -299,14 +299,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 36db2dd54a263fc499350722137c531f
-      internalID: -1120162185
+      spriteID: 26a54849c70445c438c8502d1dd63301
+      internalID: 759894712
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: axis-sprite-sheet_9
+      name: myst-sprite-sheet_9
       rect:
         serializedVersion: 2
         x: 1440
@@ -320,14 +320,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 92abeca02bed0714ea0cfdf92a3e4ef3
-      internalID: 2044477171
+      spriteID: fbc7485149dc7644392f2d2802f09b90
+      internalID: -713474712
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: axis-sprite-sheet_10
+      name: myst-sprite-sheet_10
       rect:
         serializedVersion: 2
         x: 0
@@ -341,14 +341,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: becf01dab9a70904d8fc0e6665cd2737
-      internalID: -130247677
+      spriteID: 76d43c2c81704264faa0f03cee4b3edc
+      internalID: 757687974
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: axis-sprite-sheet_11
+      name: myst-sprite-sheet_11
       rect:
         serializedVersion: 2
         x: 160
@@ -362,14 +362,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 95c1c9d972e029f41a3faee2c582e1d7
-      internalID: -1861290877
+      spriteID: 1a358608e5c38c14183b5d706606c261
+      internalID: 594239544
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: axis-sprite-sheet_12
+      name: myst-sprite-sheet_12
       rect:
         serializedVersion: 2
         x: 320
@@ -383,14 +383,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a30ab60a7076a714293e9ac8f41274d8
-      internalID: 1444426440
+      spriteID: 6e9fee14510136d49a5b929a86580147
+      internalID: 1689008438
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: axis-sprite-sheet_13
+      name: myst-sprite-sheet_13
       rect:
         serializedVersion: 2
         x: 480
@@ -404,14 +404,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ab67f4b38bff86e4a8e24128d55c597f
-      internalID: 571431797
+      spriteID: 9b9778b5fec3f3d458210237538cf26d
+      internalID: -1202089234
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: axis-sprite-sheet_14
+      name: myst-sprite-sheet_14
       rect:
         serializedVersion: 2
         x: 640
@@ -425,14 +425,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2d1534b0a48cebf48b03374e4edb64a4
-      internalID: -1348204004
+      spriteID: 875b3b5c8ca17cd4195d0366290c79c8
+      internalID: -679386337
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: axis-sprite-sheet_15
+      name: myst-sprite-sheet_15
       rect:
         serializedVersion: 2
         x: 800
@@ -446,14 +446,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 17c2bd3afd3e3c847bfaccb4ea6f86eb
-      internalID: -646323129
+      spriteID: 1f245d27fe7dbfd47989ac750c1baad6
+      internalID: 1223866841
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: axis-sprite-sheet_16
+      name: myst-sprite-sheet_16
       rect:
         serializedVersion: 2
         x: 960
@@ -467,14 +467,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 595eacd294a16534ab7bb2d6dd86c19b
-      internalID: -1661876985
+      spriteID: af01e02663ffa39478194b00f21e4382
+      internalID: -2028407496
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: axis-sprite-sheet_17
+      name: myst-sprite-sheet_17
       rect:
         serializedVersion: 2
         x: 1120
@@ -488,14 +488,35 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c9e30dd4ba36e1b4eb9ec8af0a87d26b
-      internalID: 1609336385
+      spriteID: d2ca0e6e39678464bb43ed02b456a5d0
+      internalID: 1646304478
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: axis-sprite-sheet_18
+      name: myst-sprite-sheet_18
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 1280
+        width: 160
+        height: 160
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ac1daffb0ff9edc40a0c46690e9a8a55
+      internalID: 244012354
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: myst-sprite-sheet_19
       rect:
         serializedVersion: 2
         x: 1440
@@ -509,8 +530,71 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 92e36d45fa7d15a43913094b934cfeb6
-      internalID: 2039809108
+      spriteID: bf3a4e6af25521444a5fd352af7275bf
+      internalID: -389374946
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: myst-sprite-sheet_20
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1120
+        width: 160
+        height: 160
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2c007e1fc2f29f34b89c3e6b8afcca33
+      internalID: -1540764839
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: myst-sprite-sheet_21
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 1120
+        width: 160
+        height: 160
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dd18c4da9408fb441bcab59ada2d51a3
+      internalID: -1945902688
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: myst-sprite-sheet_22
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 1120
+        width: 160
+        height: 160
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c576fcf83f345d94abcf454b19d9ca7c
+      internalID: -682613820
       vertices: []
       indices: 
       edges: []
@@ -526,25 +610,29 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      axis-sprite-sheet_10: -130247677
-      axis-sprite-sheet_1: -1706708554
-      axis-sprite-sheet_4: 1729787033
-      axis-sprite-sheet_11: -1861290877
-      axis-sprite-sheet_5: 1157730537
-      axis-sprite-sheet_0: -905927460
-      axis-sprite-sheet_17: 1609336385
-      axis-sprite-sheet_3: -526836749
-      axis-sprite-sheet_18: 2039809108
-      axis-sprite-sheet_8: -1120162185
-      axis-sprite-sheet_6: -1159250768
-      axis-sprite-sheet_15: -646323129
-      axis-sprite-sheet_2: 376062688
-      axis-sprite-sheet_14: -1348204004
-      axis-sprite-sheet_7: -676168576
-      axis-sprite-sheet_16: -1661876985
-      axis-sprite-sheet_13: 571431797
-      axis-sprite-sheet_12: 1444426440
-      axis-sprite-sheet_9: 2044477171
+      myst-sprite-sheet_10: 757687974
+      myst-sprite-sheet_11: 594239544
+      myst-sprite-sheet_22: -682613820
+      myst-sprite-sheet_21: -1945902688
+      myst-sprite-sheet_19: -389374946
+      myst-sprite-sheet_0: -1902077613
+      myst-sprite-sheet_4: -1375545946
+      myst-sprite-sheet_7: 468977886
+      myst-sprite-sheet_15: 1223866841
+      myst-sprite-sheet_2: -134591790
+      myst-sprite-sheet_14: -679386337
+      myst-sprite-sheet_13: -1202089234
+      myst-sprite-sheet_1: -1853111557
+      myst-sprite-sheet_5: 1025857820
+      myst-sprite-sheet_17: 1646304478
+      myst-sprite-sheet_18: 244012354
+      myst-sprite-sheet_9: -713474712
+      myst-sprite-sheet_3: 1459648933
+      myst-sprite-sheet_6: -1649003258
+      myst-sprite-sheet_8: 759894712
+      myst-sprite-sheet_20: -1540764839
+      myst-sprite-sheet_16: -2028407496
+      myst-sprite-sheet_12: 1689008438
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

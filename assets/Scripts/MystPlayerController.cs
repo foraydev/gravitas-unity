@@ -67,6 +67,7 @@ public class MystPlayerController : Player
 			if (wasWallSliding && !wallSliding) {
 				OnLeaveGround();
 			}
+			UpdateAnimator();
 			if (isGrounded && moveMode == "normal" && swordMode == "normal") {
 				gameManager.playerMP += 2;
 			}
@@ -173,5 +174,10 @@ public class MystPlayerController : Player
 			return false;
 		}
 		return wallSliding;
+	}
+
+	protected void UpdateAnimator() {
+		base.UpdateAnimator();
+		animator.SetBool("WallCling", wallSliding);
 	}
 }

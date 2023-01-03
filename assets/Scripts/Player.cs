@@ -19,7 +19,7 @@ public class Player : MonoBehaviour
     protected float runSpeed = 40f;
 
 	// normal grounded info
-    protected const float groundedRadius = .2f;
+    protected const float groundedRadius = .1f;
 	protected bool isGrounded;
 	protected LayerMask whatIsGround;
 	protected Transform groundCheck;
