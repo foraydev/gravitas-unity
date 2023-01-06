@@ -19,6 +19,11 @@ public class AxisPlayerController : Player
 	private int gravWaveCooldownFrames = 20;
 	private float mpPerCast = 50f;
 
+	//seedbomb
+	public GameObject seedbombPrefab;
+	private int framesSinceLastBomb = 0;
+	private int seedBombCooldownFrames = 30;
+
 	void Start() {
 		base.Start();
 		runSpeed = 30f;
@@ -32,6 +37,10 @@ public class AxisPlayerController : Player
 			if (gameManager.CanAct() && Input.GetButtonDown("Spell") && moveMode == "normal")
 			{
 				moveMode = "cast";
+			}
+			if (gameManager.CanAct() && Input.GetButtonDown("SeedBomb") && moveMode == "normal")
+			{
+				moveMode = "seedbomb";
 			}
 		}
     }
@@ -47,7 +56,11 @@ public class AxisPlayerController : Player
 			if (moveMode == "cast") {
 				Cast();
 			}
+			if (moveMode == "seedbomb") {
+				ThrowSeedBomb();
+			}
 			framesSinceLastWave++;
+			framesSinceLastBomb++;
 		}
     }
 
@@ -108,5 +121,15 @@ public class AxisPlayerController : Player
 		gameManager.playerMP -= mpPerCast;
 		moveMode = "normal";
 		framesSinceLastWave = 0;
+	}
+
+	protected void ThrowSeedBomb() {
+		if (framesSinceLastBomb < seedBombCooldownFrames) {
+			moveMode = "normal";
+			return;
+		}
+		Instantiate(seedbombPrefab, firePoint.position, firePoint.rotation);
+		moveMode = "normal";
+		framesSinceLastBomb = 0;
 	}
 }

@@ -27,6 +27,7 @@ public class Camera2DFollow : MonoBehaviour {
 	private float shakeTimeRemaining;
     private float shakeIntensity;
 	private float shakeFadeTime;
+	private int direction; // -1 = pan down; 0 = normal; 1 = pan up
 	
 	// Use this for initialization
 	void Start () {
@@ -49,8 +50,16 @@ public class Camera2DFollow : MonoBehaviour {
 		} else {
 			lookAheadPos = Vector3.MoveTowards(lookAheadPos, Vector3.zero, Time.deltaTime * lookAheadReturnSpeed);	
 		}
+
+		if (CanPanUp() && Input.GetAxisRaw("Vertical") > 0.9) {
+			direction = 1;
+		} else if (CanPanDown() && Input.GetAxisRaw("Vertical") < -0.9) {
+			direction = -1;
+		} else {
+			direction = 0;
+		}
 		
-		Vector3 aheadTargetPos = target + lookAheadPos + Vector3.forward * offsetZ;
+		Vector3 aheadTargetPos = target + lookAheadPos + Vector3.forward * offsetZ + Vector3.up * direction * 4;
 		aheadTargetPos = new Vector3(Mathf.Clamp(aheadTargetPos.x, sceneLeftEdge + Constants.CAM_VIEWPORT_WIDTH/2, sceneLeftEdge + sceneWidth - Constants.CAM_VIEWPORT_WIDTH/2), Mathf.Clamp(aheadTargetPos.y, sceneBottomEdge + Constants.CAM_VIEWPORT_HEIGHT/2, sceneBottomEdge + sceneHeight - Constants.CAM_VIEWPORT_HEIGHT/2), Constants.CAM_Z);
 		Vector3 newPos = Vector3.SmoothDamp(transform.position, aheadTargetPos, ref currentVelocity, damping);
 
@@ -85,4 +94,31 @@ public class Camera2DFollow : MonoBehaviour {
         shakeIntensity = intensity;
 		shakeFadeTime = fadeOut ? intensity / duration : 0;
     }
+
+	private bool CanPanUp() {
+		foreach (CameraLockZone z in zones) {
+			if (z.IsActive() && z.zoneType == "fake-top" && transform.position.y + 4 > z.zoneY) {
+				return false;
+			}
+		}
+		return CanPan();
+	}
+
+	private bool CanPanDown() {
+		foreach (CameraLockZone z in zones) {
+			if (z.IsActive() && z.zoneType == "fake-bottom" && transform.position.y - 4 < z.zoneY + z.zoneH) {
+				return false;
+			}
+		}
+		return CanPan();
+	}
+
+	private bool CanPan() {
+		foreach (CameraLockZone z in zones) {
+			if (z.IsActive() && z.zoneType == "fixed") {
+				return false;
+			}
+		}
+		return gameManager.currentPlayerTransform.gameObject.GetComponent<Rigidbody2D>().velocity.magnitude < 0.5;
+	}
 }

@@ -14559,6 +14559,7 @@ MonoBehaviour:
   mpPerJump: 60
   firePoint: {fileID: 2597523811946586115}
   wavePrefab: {fileID: 7606341064557221214, guid: 09f3d2547af8e6642b18442d5e68c8d4, type: 3}
+  seedbombPrefab: {fileID: 4456952788865790025, guid: 254fc5e483c873e41b3aa4beb25460f5, type: 3}
 --- !u!50 &8929135559047344160
 Rigidbody2D:
   serializedVersion: 4
@@ -14629,7 +14630,7 @@ SpriteRenderer:
   m_Size: {x: 1.6, y: 1.6}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!61 &8929135559047344166
