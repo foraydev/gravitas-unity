@@ -7,6 +7,7 @@ public class SeedBomb_Projectile : MonoBehaviour
     private float speed = 8f;
     public Rigidbody2D rb;
     public GameObject platformPrefab;
+    public GameObject attackPrefab;
     private string activationMode = "platform";
 
     void Start()
@@ -19,9 +20,24 @@ public class SeedBomb_Projectile : MonoBehaviour
     }
 
     void OnCollisionEnter2D(Collision2D col) {
-        if (LayerMask.LayerToName(col.gameObject.layer) == "Ground") {
-            Instantiate(platformPrefab, new Vector3(transform.position.x, transform.position.y+1.48f, transform.position.z), new Quaternion(0f, 0f, 0f, 0f));
-            Destroy(gameObject);
+        if (activationMode == "platform") {
+            if (col.gameObject.tag == "PlayerAttack") {
+                activationMode = "attack";
+                if (col.gameObject.name.Contains("GravityWave")) {
+                    rb.velocity = new Vector3(col.rigidbody.velocity.x*1.5f, 5f, 0f);
+                    Destroy(col.gameObject);
+                }
+            } else if (LayerMask.LayerToName(col.gameObject.layer) != "Player") {
+                if (LayerMask.LayerToName(col.gameObject.layer) == "Ground") {
+                    Instantiate(platformPrefab, new Vector3(transform.position.x, transform.position.y+1.48f, transform.position.z), new Quaternion(0f, 0f, 0f, 0f));
+                }
+                Destroy(gameObject);
+            }
+        } else {
+            if (col.gameObject.tag == "Enemy" || LayerMask.LayerToName(col.gameObject.layer) == "Ground") {
+                Instantiate(attackPrefab, transform.position, transform.rotation);
+                Destroy(gameObject);
+            }
         }
     }
 }

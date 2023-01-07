@@ -9,6 +9,7 @@ TagManager:
   - Collectible
   - Destructible
   - Enemy
+  - PlayerAttack
   layers:
   - Default
   - TransparentFX

@@ -198,7 +198,7 @@ public class Player : MonoBehaviour
 		if (gameManager.gameState == "play") {
 			if (col.gameObject.tag == "Enemy") {
 				TakeDamage(20);
-				rigidbody2D.AddForce(new Vector2(col.gameObject.transform.position.x < transform.position.x ? 1500f : -1500f, 600f));
+				rigidbody2D.AddForce(new Vector2(col.transform.position.x < transform.position.x ? 1500f : -1500f, 600f));
 			}
 		}
     }
