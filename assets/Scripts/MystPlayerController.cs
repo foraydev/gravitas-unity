@@ -71,6 +71,9 @@ public class MystPlayerController : Player
 			if (isGrounded && moveMode == "normal" && swordMode == "normal") {
 				gameManager.playerMP += 2;
 			}
+			if (moveMode == "altmove") {
+				Vault();
+			}
 		}
     }
 
@@ -128,7 +131,7 @@ public class MystPlayerController : Player
 	public void LoadFromPlayerState(PlayerState ps) {
 		base.LoadFromPlayerState(ps);
 		if (moveMode == "up-transition") {
-			rigidbody2D.AddForce(new Vector2(facingRight ? 110f : -110f, 1000f));
+			rigidbody2D.AddForce(new Vector2(facingRight ? 130f : -130f, 1100f));
 		}
 	}
 
@@ -174,6 +177,10 @@ public class MystPlayerController : Player
 			return false;
 		}
 		return wallSliding;
+	}
+
+	protected void Vault() {
+		moveMode = "normal";
 	}
 
 	protected void UpdateAnimator() {

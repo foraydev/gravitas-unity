@@ -37,8 +37,14 @@ public class SeedBombPlatform : MonoBehaviour
         if (!disabled && timeActive >= platformEndTime) {
             collider.enabled = false;
         }
-        if (timeActive >= totalDuration) {
+        if (timeActive >= totalDuration || (disabled && timeActive >= 1f)) {
             Destroy(gameObject);
+        }
+    }
+
+    void OnDestroy() {
+        if (GameManager.Instance.currentPlayer == "Axis") {
+            GameManager.Instance.currentPlayerTransform.gameObject.GetComponent<AxisPlayerController>().BeginSeedBombCooldown();
         }
     }
 }

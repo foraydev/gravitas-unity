@@ -44,6 +44,9 @@ public class Player : MonoBehaviour
 	protected int knockbackFrames = 5;
 	protected int iFrames = 20;
 
+	//looking up/down
+	protected int lookDirection = 0;
+
     protected void Start()
 	{
 		rigidbody2D = GetComponent<Rigidbody2D>();
@@ -57,7 +60,8 @@ public class Player : MonoBehaviour
 
     protected void Update()
     {
-		if (moveMode != "damaged") {
+		horizontalMove = 0f;
+		if (moveMode != "damaged" && moveMode != "seedbomb" && moveMode != "cast" && moveMode != "cast2") {
 			horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
 			if (Input.GetButtonDown("Float"))
 			{
@@ -70,6 +74,9 @@ public class Player : MonoBehaviour
 					jumping = true;
 				} else if (Input.GetButtonUp("Jump")) {
 					canJump = true;
+				}
+				if (Input.GetButtonDown("AltMove")) {
+					moveMode = "altmove";
 				}
 			}
 		}
@@ -137,7 +144,6 @@ public class Player : MonoBehaviour
 			rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, 0);
 			isGrounded = false;
 			rigidbody2D.AddForce(new Vector2(0f, jumpForce));
-			//framesSinceLeavingGround = graceFrames;
 		}
 	}
 
@@ -250,10 +256,25 @@ public class Player : MonoBehaviour
 			animator.SetInteger("MoveMode", 2);
 		} else if (moveMode == "damaged") {
 			animator.SetInteger("MoveMode", 3);
+		} else if (moveMode == "cast") {
+			animator.SetInteger("MoveMode", 4);
+		} else if (moveMode == "cast2") {
+			animator.SetInteger("MoveMode", 5);
+		} else if (moveMode == "altmove") {
+			animator.SetInteger("MoveMode", 6);
+		} else if (moveMode == "seedbomb") {
+			animator.SetInteger("MoveMode", 7);
 		}
 		animator.SetFloat("xSpeed", Mathf.Abs(rigidbody2D.velocity.x));
 		animator.SetFloat("ySpeed", rigidbody2D.velocity.y);
 		animator.SetBool("Jumping", jumping);
 		animator.SetBool("Grounded", isGrounded);
+		if (rigidbody2D.velocity.magnitude < 0.5 && Input.GetAxisRaw("Vertical") > 0.9) {
+			animator.SetInteger("LookDirection", 1);
+		} else if (rigidbody2D.velocity.magnitude < 0.5 && Input.GetAxisRaw("Vertical") < -0.9) {
+			animator.SetInteger("LookDirection", -1);
+		} else {
+			animator.SetInteger("LookDirection", 0);	
+		}
 	}
 }
