@@ -17,9 +17,9 @@ public class AxisPlayerController : Player
 	public Transform firePoint;
 	public GameObject wavePrefab;
 	private float gravWaveActiveTime = 0f;
-	private float gravWaveReleaseTime = 0.083f;
+	private float gravWaveReleaseTime = 0.25f;
 	private bool releasedGravWave = false;
-	private float gravWaveDuration = 0.33f;
+	private float gravWaveDuration = 0.583f;
 	private float mpPerCast = 50f;
 
 	//seedbomb
@@ -44,6 +44,13 @@ public class AxisPlayerController : Player
 	private float timeSinceDash = 0f;
 	private float dashCooldown = 0.5f;
 
+	//attack
+	private float attackActiveTime = 0f;
+	private float attackDuration = 0.4167f;
+	private bool continueAttack = false;
+	private float upAttackDuration = 0.4167f;
+	private float downAttackDuration = 0.4167f;
+
 	void Start() {
 		base.Start();
 		runSpeed = 30f;
@@ -56,6 +63,17 @@ public class AxisPlayerController : Player
 		if (gameManager.currentPlayer == "Axis" && gameManager.gameState == "play")
 		{
 			base.Update();
+			if (gameManager.CanAct() && Input.GetButtonDown("Attack") && moveMode == "normal") {
+				if (Input.GetAxisRaw("Vertical") > 0.75) {
+					moveMode = "attack-up";
+				} else if (Input.GetAxisRaw("Vertical") < -0.75 && !isGrounded) {
+					moveMode = "attack-down";
+				} else {
+					moveMode = "attack";
+				}
+				attackActiveTime = 0f;
+				continueAttack = false;
+			}
 			if (gameManager.CanAct() && Input.GetButtonDown("Spell") && moveMode == "normal") {
 				moveMode = "cast";
 				gravWaveActiveTime = 0f;
@@ -79,8 +97,17 @@ public class AxisPlayerController : Player
 		if (gameManager.currentPlayer == "Axis" && gameManager.gameState == "play")
 		{
 			base.FixedUpdate();
-			if (isGrounded && moveMode == "normal" && !blackHoleActive) {
+			if (isGrounded && (moveMode == "normal" || moveMode == "attack" || moveMode == "attack-up") && !blackHoleActive) {
 				gameManager.playerMP += 2;
+			}
+			if (moveMode == "attack") {
+				Attack();
+			}
+			if (moveMode == "attack-up") {
+				AttackUp();
+			}
+			if (moveMode == "attack-down") {
+				AttackDown();
 			}
 			if (moveMode == "cast") {
 				Cast();
@@ -213,6 +240,30 @@ public class AxisPlayerController : Player
 			dashPS.Stop();
 			timeSinceDash = 0f;
 		}
+	}
+
+	protected void Attack() {
+		if (Input.GetButtonDown("Attack")) {
+			continueAttack = true;
+		}
+		if ((!continueAttack && attackActiveTime >= attackDuration) || (continueAttack && attackActiveTime >= attackDuration*2)) {
+			moveMode = "normal";
+		}
+		attackActiveTime += Time.deltaTime;
+	}
+
+	protected void AttackUp() {
+		if (attackActiveTime >= upAttackDuration) {
+			moveMode = "normal";
+		}
+		attackActiveTime += Time.deltaTime;
+	}
+
+	protected void AttackDown() {
+		if (attackActiveTime >= downAttackDuration) {
+			moveMode = "normal";
+		}
+		attackActiveTime += Time.deltaTime;
 	}
 
 	public void BeginSeedBombCooldown() {

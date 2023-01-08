@@ -119,6 +119,6 @@ public class Camera2DFollow : MonoBehaviour {
 				return false;
 			}
 		}
-		return gameManager.currentPlayerTransform.gameObject.GetComponent<Rigidbody2D>().velocity.magnitude < 0.5;
+		return gameManager.currentPlayerTransform.gameObject.GetComponent<Rigidbody2D>().velocity.magnitude < 0.5 && gameManager.currentPlayerTransform.gameObject.GetComponent<Player>().moveMode == "normal";
 	}
 }

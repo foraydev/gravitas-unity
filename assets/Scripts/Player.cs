@@ -264,6 +264,14 @@ public class Player : MonoBehaviour
 			animator.SetInteger("MoveMode", 6);
 		} else if (moveMode == "seedbomb") {
 			animator.SetInteger("MoveMode", 7);
+		} else if (moveMode == "seedbomb") {
+			animator.SetInteger("MoveMode", 7);
+		} else if (moveMode == "attack") {
+			animator.SetInteger("MoveMode", 8);
+		} else if (moveMode == "attack-up") {
+			animator.SetInteger("MoveMode", 9);
+		} else if (moveMode == "attack-down") {
+			animator.SetInteger("MoveMode", 10);
 		}
 		animator.SetFloat("xSpeed", Mathf.Abs(rigidbody2D.velocity.x));
 		animator.SetFloat("ySpeed", rigidbody2D.velocity.y);
