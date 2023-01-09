@@ -13480,7 +13480,7 @@ AudioSource:
   m_Volume: 0.75
   m_Pitch: 1
   Loop: 1
-  Mute: 1
+  Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
@@ -19030,7 +19030,7 @@ PrefabInstance:
     - target: {fileID: 8929135559047344161, guid: 9eaece7d26605d04f8207c0886d111cf, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -196564015, guid: 2d363bff8fb40734790199b7cc5739b2, type: 3}
+      objectReference: {fileID: 790960086, guid: e83323084012e0c439fc5859c6da2c1e, type: 3}
     - target: {fileID: 8929135559047344161, guid: 9eaece7d26605d04f8207c0886d111cf, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
@@ -19126,6 +19126,14 @@ PrefabInstance:
     - target: {fileID: 8929135559047344165, guid: 9eaece7d26605d04f8207c0886d111cf, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8929135559047344166, guid: 9eaece7d26605d04f8207c0886d111cf, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 3.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8929135559047344166, guid: 9eaece7d26605d04f8207c0886d111cf, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 3.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9eaece7d26605d04f8207c0886d111cf, type: 3}

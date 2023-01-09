@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SeedBomb_Projectile : MonoBehaviour
+public class SeedBombProjectile : MonoBehaviour
 {
     private float speed = 8f;
     public Rigidbody2D rb;
@@ -18,6 +18,21 @@ public class SeedBomb_Projectile : MonoBehaviour
     void Update() {
         transform.Rotate(new Vector3(0f, 0f, 1f));
     }
+
+    protected void OnTriggerEnter2D(Collider2D col) {
+		if (col.gameObject.name == "AxisAttackHitboxN") {
+            rb.velocity = new Vector3(col.transform.parent.GetComponent<Player>().facingRight ? 6f : -6f, 4f, 0f);
+            activationMode = "attack";
+        }
+        if (col.gameObject.name == "AxisAttackHitboxU") {
+            rb.velocity = new Vector3(rb.velocity.x, 6f, 0f);
+            activationMode = "attack";
+        }
+        if (col.gameObject.name == "AxisAttackHitboxD") {
+            rb.velocity = new Vector3(0f, -6f, 0f);
+            activationMode = "attack";
+        }
+	}
 
     void OnCollisionEnter2D(Collision2D col) {
         if (activationMode == "platform") {

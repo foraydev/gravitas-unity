@@ -50,12 +50,23 @@ public class AxisPlayerController : Player
 	private bool continueAttack = false;
 	private float upAttackDuration = 0.4167f;
 	private float downAttackDuration = 0.4167f;
+	private float attackActivateTime = 0.083f;
+	private float attackActiveDuration = 0.167f;
+	private GameObject hitboxN;
+	private GameObject hitboxU;
+	private GameObject hitboxD;
 
 	void Start() {
 		base.Start();
 		runSpeed = 30f;
 		timeSinceSeedBomb = seedBombCooldown;
 		ableToUseSeedBomb = true;
+		hitboxN = transform.Find("AxisAttackHitboxN").gameObject;
+		hitboxU = transform.Find("AxisAttackHitboxU").gameObject;
+		hitboxD = transform.Find("AxisAttackHitboxD").gameObject;
+		hitboxN.SetActive(false);
+		hitboxU.SetActive(false);
+		hitboxD.SetActive(false);
 	}
 
     void Update()
@@ -246,6 +257,12 @@ public class AxisPlayerController : Player
 		if (Input.GetButtonDown("Attack")) {
 			continueAttack = true;
 		}
+		if (attackActiveTime % attackDuration >= attackActivateTime && !hitboxN.activeSelf) {
+			hitboxN.SetActive(true);
+		}
+		if (attackActiveTime % attackDuration >= attackActivateTime + attackActiveDuration && hitboxN.activeSelf) {
+			hitboxN.SetActive(false);
+		}
 		if ((!continueAttack && attackActiveTime >= attackDuration) || (continueAttack && attackActiveTime >= attackDuration*2)) {
 			moveMode = "normal";
 		}
@@ -253,6 +270,12 @@ public class AxisPlayerController : Player
 	}
 
 	protected void AttackUp() {
+		if (attackActiveTime >= attackActivateTime && !hitboxU.activeSelf) {
+			hitboxU.SetActive(true);
+		}
+		if (attackActiveTime >= attackActivateTime + attackActiveDuration && hitboxU.activeSelf) {
+			hitboxU.SetActive(false);
+		}
 		if (attackActiveTime >= upAttackDuration) {
 			moveMode = "normal";
 		}
@@ -260,6 +283,12 @@ public class AxisPlayerController : Player
 	}
 
 	protected void AttackDown() {
+		if (attackActiveTime >= attackActivateTime && !hitboxD.activeSelf) {
+			hitboxD.SetActive(true);
+		}
+		if (attackActiveTime >= attackActivateTime + attackActiveDuration && hitboxD.activeSelf) {
+			hitboxD.SetActive(false);
+		}
 		if (attackActiveTime >= downAttackDuration) {
 			moveMode = "normal";
 		}
