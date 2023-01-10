@@ -29,6 +29,7 @@ public class Player : MonoBehaviour
 	protected Vector3 velocity = Vector3.zero;
     protected Vector3 respawnPoint;
 	protected Animator animator;
+	protected ParticleSystem parryPS;
 
 	// fallstun
 	protected float fallStartY = 0f;
@@ -47,6 +48,17 @@ public class Player : MonoBehaviour
 	//looking up/down
 	protected int lookDirection = 0;
 
+	//parry
+	protected float parryActiveTime = 0f;
+	protected float parryDuration = 0.5f;
+	protected float parrySuccessDuration = 0.3f;
+	protected float parryActiveDuration = 0.33f;
+	protected float parryStartTime = 0.083f;
+	protected int parryState = 0; // 0 = normal parry, 1 = normal parry successful, 2 = chaos parry, 3 = chaos parry successful
+	protected bool hasChaosShield = true;
+	protected float timeSinceChaosUsed = 0f;
+	protected float chaosCooldown = 1.5f;
+
     protected void Start()
 	{
 		rigidbody2D = GetComponent<Rigidbody2D>();
@@ -56,6 +68,7 @@ public class Player : MonoBehaviour
         respawnPoint = new Vector3(0f, 0f, 0f);
         gameManager.playerMP = gameManager.maxMP;
 		animator = GetComponent<Animator>();
+		parryPS = transform.Find("ParryPS").gameObject.GetComponent<ParticleSystem>();
 	}
 
     protected void Update()
@@ -203,8 +216,18 @@ public class Player : MonoBehaviour
 	protected void OnCollisionEnter2D(Collision2D col) {
 		if (gameManager.gameState == "play") {
 			if (col.gameObject.tag == "Enemy") {
-				TakeDamage(20);
-				rigidbody2D.AddForce(new Vector2(col.transform.position.x < transform.position.x ? 1500f : -1500f, 600f));
+				if (moveMode == "parry" && framesSinceDamage >= iFrames) {
+					if (parryState == 0) {
+						parryPS.Play();
+					}
+					parryState = parryState == 2 ? 3 : 1;
+					framesSinceDamage = 0;
+					rigidbody2D.AddForce(new Vector2(col.transform.position.x < transform.position.x ? 1500f : -1200f, 0f));
+					GameObject.Find("Main Camera").GetComponent<Camera2DFollow>().StartShake(0.2f, 0.03f, true);
+				} else {
+					TakeDamage(20);
+					rigidbody2D.AddForce(new Vector2(col.transform.position.x < transform.position.x ? 1500f : -1500f, 600f));
+				}
 			}
 		}
     }
@@ -272,6 +295,8 @@ public class Player : MonoBehaviour
 			animator.SetInteger("MoveMode", 9);
 		} else if (moveMode == "attack-down") {
 			animator.SetInteger("MoveMode", 10);
+		} else if (moveMode == "parry") {
+			animator.SetInteger("MoveMode", 11);
 		}
 		animator.SetFloat("xSpeed", Mathf.Abs(rigidbody2D.velocity.x));
 		animator.SetFloat("ySpeed", rigidbody2D.velocity.y);

@@ -9,6 +9,8 @@ public class AxisPlayerController : Player
 	public ParticleSystem floatPS;
 	public ParticleSystem doubleJumpPS;
 	public ParticleSystem dashPS;
+	public ParticleSystem chaosPS;
+	//public ParticleSystem parryPS;
 
 	// gravity
 	public float mpPerJump = 50f;
@@ -100,6 +102,11 @@ public class AxisPlayerController : Player
 				seedBombActiveTime = 0f;
 				releasedSeedBomb = false;
 			}
+			if (gameManager.CanAct() && Input.GetButtonDown("Block") && moveMode == "normal") {
+				moveMode = "parry";
+				parryState = hasChaosShield ? 2 : 0;
+				parryActiveTime = 0f;
+			}
 		}
     }
 
@@ -120,6 +127,9 @@ public class AxisPlayerController : Player
 			if (moveMode == "attack-down") {
 				AttackDown();
 			}
+			if (moveMode == "parry") {
+				Parry();
+			}
 			if (moveMode == "cast") {
 				Cast();
 			}
@@ -138,6 +148,13 @@ public class AxisPlayerController : Player
 				timeSinceSeedBomb += Time.deltaTime;
 				if (!ableToUseSeedBomb && timeSinceSeedBomb >= seedBombCooldown) {
 					ableToUseSeedBomb = true;
+				}
+			}
+			if (moveMode == "normal") {
+				timeSinceChaosUsed += Time.deltaTime;
+				if (timeSinceChaosUsed >= chaosCooldown && !hasChaosShield) {
+					hasChaosShield = true;
+					chaosPS.Play();
 				}
 			}
 		}
@@ -295,6 +312,26 @@ public class AxisPlayerController : Player
 		attackActiveTime += Time.deltaTime;
 	}
 
+	protected void Parry() {
+		animator.SetInteger("ParryState", parryState);
+		rigidbody2D.velocity = Vector2.zero;
+		parryActiveTime += Time.deltaTime;
+		if ((parryState == 0 || parryState == 2) && parryActiveTime >= parryDuration) {
+			moveMode = "normal";
+			if (parryState == 2) {
+				hasChaosShield = false;
+				timeSinceChaosUsed = 0f;
+			}
+		}
+		if ((parryState == 1 || parryState == 3) && parryActiveTime >= parryDuration + parrySuccessDuration) {
+			moveMode = "normal";
+			if (parryState == 3) {
+				hasChaosShield = false;
+				timeSinceChaosUsed = 0f;
+			}
+		}
+	}
+
 	public void BeginSeedBombCooldown() {
 		timeSinceSeedBomb = 0f;
 		seedBombActive = false;
@@ -303,4 +340,14 @@ public class AxisPlayerController : Player
 	public void DeactivateBlackHole() {
 		blackHoleActive = false;
 	}
+
+	protected void BlockOnDamage(float dmg) {
+		Debug.Log("parry triggered");
+		if (parryState == 0) {
+			parryPS.Play();
+		}
+		parryState = parryState == 2 ? 3 : 1;
+		framesSinceDamage = 0;
+		return;
+    }
 }
